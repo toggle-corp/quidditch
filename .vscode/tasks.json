@@ -18,7 +18,7 @@
         },
         {
             "taskName": "run",
-            "args": ["make && ./bin/quidditch || echo 'Make failed, not running !'"],
+            "args": ["make && ./bin/quidditch"],
             "isTestCommand": true
         }
     ]

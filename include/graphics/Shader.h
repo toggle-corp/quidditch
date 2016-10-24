@@ -2,6 +2,20 @@
 
 class Shader {
 public:
+    static std::shared_ptr<Shader> get(const std::string& filename,
+                             GLenum type)
+    {
+        // First check if the shader already exists,
+        // and if it does, return that shader.
+        auto& shaderManager = Manager<Shader>::get();
+        if (shaderManager.has(filename)) {
+            return shaderManager.get(filename);
+        }
+        else {
+            return shaderManager.add(filename, filename, type);
+        }
+    }
+
     Shader(const std::string& filename, GLenum type) {
         std::string str = readFile(filename);
         const char* text = str.c_str();

@@ -22,7 +22,7 @@ Application::Application()
     glfwSetWindowUserPointer(mWindow, this);
     glfwMakeContextCurrent(mWindow);
 
-    // TODO: Check if created opengl context is less than 3.3.
+    // TODO: Check if created opengl context is less than 3.3
 
     // Enable GLEW
     glewExperimental = GL_TRUE;
@@ -48,14 +48,18 @@ Application::~Application() {
     glfwTerminate();
 }
 
-void Application::run() {
+void Application::run(Timer& timer) {
     init();
     glfwGetFramebufferSize(mWindow, &mWidth, &mHeight);
     resize();
 
+    timer.reset();
     while(!glfwWindowShouldClose(mWindow)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        timer.update([this](double dt){
+            update(dt);
+        });
         render();
 
         glfwSwapBuffers(mWindow);
@@ -66,10 +70,14 @@ void Application::run() {
 void Application::init() {
     glClearColor(0.396f, 0.612f, 0.937f, 1.0f);
     glEnable(GL_DEPTH_TEST);
+
+    mCamera.reset(new Camera());
+    mModel.reset(new Model("model-converter/bin/homer.out"));
 }
 
 void Application::resize() {
     glViewport(0, 0, mWidth, mHeight);
+    mCamera->resize(mWidth, mHeight);
 }
 
 void Application::update(double dt) {
@@ -77,6 +85,11 @@ void Application::update(double dt) {
 }
 
 void Application::render() {
+    RenderState state;
+    state.camera = mCamera->getViewProjection();
+
+    glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(0, 0, -100.0f));
+    mModel->render(model, state);
 }
 
 void Application::cleanUp() {
