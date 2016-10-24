@@ -2,8 +2,24 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "make",
+    "command": "sh",
     "isShellCommand": true,
-    "args": [],
-    "showOutput": "always"
+    "args": ["-c"],
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "make",
+            "args": ["make"]
+        },
+        {
+            "taskName": "clean",
+            "args": ["make clean"]
+        },
+        {
+            "taskName": "run",
+            "args": ["make && ./bin/quidditch || echo 'Make failed, not running !'"],
+            "isTestCommand": true
+        }
+    ]
 }

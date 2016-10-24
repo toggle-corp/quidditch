@@ -1,7 +1,13 @@
 #include <stdinc.h>
+#include <Application.h>
 
 int main() {
-    // Press Ctrl+F5 to run (debug).
-    std::cout << "Hello world" << std::endl;
+    try {
+        Application application;
+        application.run();
+    }
+    catch (const Exception& exception) {
+        std::cout << exception.what() << std::endl;
+    }
     return 0;
 }
