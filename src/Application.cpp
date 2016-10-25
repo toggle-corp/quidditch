@@ -71,6 +71,8 @@ void Application::init() {
     glClearColor(0.396f, 0.612f, 0.937f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 
+    mWorld.reset(new PhysicsWorld());
+
     mCamera.reset(new Camera());
     mModel.reset(new Model("model-converter/bin/homer.out"));
 }
@@ -81,7 +83,7 @@ void Application::resize() {
 }
 
 void Application::update(double dt) {
-
+    mWorld->step(dt);
 }
 
 void Application::render() {

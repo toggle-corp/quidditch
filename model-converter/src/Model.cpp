@@ -3,7 +3,7 @@
 
 
 Model::Model(const std::string& path)
-    : mPath(path)
+    : mPath(path), mShape(NULL)
 {
     // Import the model from the path to a scene
     Assimp::Importer importer;
@@ -152,6 +152,39 @@ void Model::save(const std::string& path)
     // TODO: Save nodes
 }
 
+void Model::saveShape(const std::string& path) {
+
+    // Serialize the bullet collision shape
+    btDefaultSerializer* serializer = new btDefaultSerializer();
+
+    serializer->startSerialization();
+    mShape->serializeSingleShape(serializer);
+    serializer->finishSerialization();
+
+    // Save the serialization
+    std::ofstream file(path, std::ios::out | std::ios::binary);
+    file.write((char*)serializer->getBufferPointer(),
+        serializer->getCurrentBufferSize());
+}
+
+void Model::calculateConvexHull() {
+    btConvexHullShape originalShape;
+
+    for (Mesh& mesh: mMeshes) {
+        for (Vertex& vertex: mesh.getVertices()) {
+            originalShape.addPoint(btVector3(
+                vertex.position.x, vertex.position.y, vertex.position.z), false);
+        }
+    }
+
+    // Create another hull approximation with reduced number of vertices
+    btShapeHull hull(&originalShape);
+	btScalar margin = originalShape.getMargin();
+	hull.buildHull(margin);
+	mShape = new btConvexHullShape(&hull.getVertexPointer()[0][0],
+        hull.numVertices());
+
+}
 
 void Model::copyTexture(const std::string& dest,
     const std::string& filename)

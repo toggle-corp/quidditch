@@ -12,8 +12,8 @@ OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(CPP_FILES:src/%.cpp=%.o))
 
 ## Compiler, compiler and linker flags and libaries to use
 CXX := g++
-CXXLIBS :=
-LDLIBS := -lassimp
+CXXLIBS := `pkg-config --cflags bullet`
+LDLIBS := -lassimp `pkg-config --libs bullet` -lBulletWorldImporter
 
 CXXFLAGS := -I include -MMD --std=c++11 $(CXXLIBS)
 LDFLAGS := --std=c++11 $(LDLIBS)

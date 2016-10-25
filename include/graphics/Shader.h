@@ -40,7 +40,7 @@ public:
         mShaderId = shader;
     }
 
-    ~Shader() {
+    virtual ~Shader() {
         glDeleteShader(mShaderId);
     }
 

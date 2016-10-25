@@ -10,15 +10,15 @@
     "tasks": [
         {
             "taskName": "make",
-            "args": ["make"]
+            "args": ["make && echo 'Built successfully !'"]
         },
         {
             "taskName": "clean",
-            "args": ["make clean"]
+            "args": ["make clean && echo 'Ready to rebuild !'"]
         },
         {
             "taskName": "run",
-            "args": ["make && ./bin/quidditch"],
+            "args": ["make && echo 'Built successfully !\nRunning...' && ./bin/quidditch"],
             "isTestCommand": true
         }
     ]

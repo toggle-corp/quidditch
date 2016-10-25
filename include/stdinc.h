@@ -34,6 +34,9 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/norm.hpp>
 
+// Bullet
+  #include <BulletDynamics/btBulletDynamicsCommon.h>
+
 // Misc
 #include <utils/file_io.h>
 #include <utils/Exception.h>

@@ -29,7 +29,7 @@ public:
         mProgramId = program;
     }
 
-    ~Program() {
+    virtual ~Program() {
         glDeleteProgram(mProgramId);
     }
 

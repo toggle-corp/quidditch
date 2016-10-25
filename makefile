@@ -1,5 +1,5 @@
 ## Source directories
-SRC_DIRS := graphics
+SRC_DIRS := graphics physics
 
 ## Directories to build files into
 OBJ_DIR := obj
@@ -15,8 +15,8 @@ OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(CPP_FILES:src/%.cpp=%.o))
 
 ## Compiler, compiler and linker flags and libaries to use
 CXX := g++
-CXXLIBS :=
-LDLIBS := -lGLEW -lGL `pkg-config --libs --static glfw3` -lSOIL
+CXXLIBS := `pkg-config --cflags bullet`
+LDLIBS := -lGLEW -lGL `pkg-config --libs --static glfw3 bullet` -lBulletWorldImporter -lSOIL
 
 # Remove -g for release build
 CXXFLAGS := -g -I include -MMD --std=c++11 $(CXXLIBS)

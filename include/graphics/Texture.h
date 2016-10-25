@@ -5,7 +5,7 @@ public:
     Texture(const std::string& path);
     Texture(unsigned char* image, int width, int height);
 
-    ~Texture() {
+    virtual ~Texture() {
         glDeleteTextures(1, &mTextureId);
     }
 

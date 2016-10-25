@@ -29,6 +29,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+// Bullet
+#include <BulletDynamics/btBulletDynamicsCommon.h>
+#include <BulletWorldImporter/btBulletWorldImporter.h>
+#include <BulletCollision/CollisionShapes/btShapeHull.h>
 
 // common include files that may be needed by almost every source.
 

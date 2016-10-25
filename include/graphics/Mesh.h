@@ -23,7 +23,7 @@ public:
     Mesh(const std::vector<Vertex>& vertices,
          const std::vector<GLuint>& indices);
 
-    ~Mesh();
+    virtual ~Mesh();
 
     void render(std::shared_ptr<Material> material, const glm::mat4& model,
                 const RenderState& renderState);

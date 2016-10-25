@@ -1,13 +1,16 @@
 #pragma once
 #include <GLFW/glfw3.h>
+
 #include <utils/Timer.h>
 #include <graphics/Camera.h>
 #include <graphics/Model.h>
+#include <physics/RigidBody.h>
+
 
 class Application {
 public:
     Application();
-    ~Application();
+    virtual ~Application();
 
     void run(Timer& timer);
 
@@ -27,4 +30,5 @@ private:
 
     std::shared_ptr<Camera> mCamera;
     std::shared_ptr<Model> mModel; 
+    std::shared_ptr<PhysicsWorld> mWorld;
 };
